@@ -1,12 +1,13 @@
 import express from 'express';
+import { LoginHandler, SignupHandler } from '../Controllers/UserController';
 
 const route = express.Router();
 
-route.get('/signup' , () => {  });
+route.get('/signup' , SignupHandler);
 
-route.get('/login' , () => {  });
+route.get('/login' , LoginHandler);
 
-route.get('/updateinfo' , () => {  })
+route.get('/updateinfo' , )
 
 export default route;
 
