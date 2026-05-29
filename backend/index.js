@@ -12,7 +12,7 @@ dotenv.config();
 const PORT  = 3000;
 DatabaseConn();
 
-app.get('/api/v1',Router);
+app.use('/api/v1', Router);
 
 app.listen(PORT , () => {
     console.log('Server Running on  PORT',PORT);
