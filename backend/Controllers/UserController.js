@@ -8,10 +8,10 @@ const app = express();
 
     try {
         
-        const { username , firstname , lastname , password }   = req.body;
-        console.log('basic body -',username , firstname , lastname , password);
+        const { email , firstname , lastname , password }   = req.body;
+        console.log('basic body -',email , firstname , lastname , password);
 
-        if(!username ||  !firstname || !lastname || !password){
+        if(!email ||  !firstname || !lastname || !password){
             return res.json({
                 message : " Enter all input Fields "
             })
@@ -20,13 +20,14 @@ const app = express();
         const PasswordEnc = await bcrypt.hash(password,10);
         console.log('Pass enc -',PasswordEnc);
 
-    //   const  user = await User.create({ username,firstname,lastname,password : PasswordEnc });
+        const  user = await User.create({ email,firstname,lastname,password : PasswordEnc });
 
-    //  console.log('new user is  1 -',user);
+        console.log('new user is  1 -',user);
 
-        return res.status(200).json({
-            message : "User Created"
-        }); 
+            return res.status(200).json({
+                message : "User Created"
+            }); 
+
        }
 
     catch (error) {
@@ -37,7 +38,25 @@ const app = express();
 };
 
  export const  LoginHandler = async(req,res) => {
-     return res.status(200).json({
-        message : "User Loggedin"
-    }) 
+    try {  
+        const { email , password } = req.body;
+        if(!email || !password){
+            return res.status().json({
+                message : "Enter all Fields"
+            })
+        }
+
+        const pass = await User.findOne({})
+
+        const hashedpass = bcrypt.compare(password,);
+
+        return res.status(200).json({
+            message : "User Loggedin"
+        }) 
+
+    } catch (error) {
+         return res.status(500).json({
+            message : "Login Failed"
+         })
+    }
 }
