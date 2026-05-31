@@ -5,26 +5,18 @@ const app = express();
 
  export const  SignupHandler = async(req,res) => {
 
-    // console.log('basic body -',username , firstname , lastname , password);
-    // const { username , firstname , lastname , password }   = req.body;
+     const { username , firstname , lastname , password }   = req.body;
+     console.log('basic body -',username , firstname , lastname , password);
 
-    //  if(!username ||  !firstname || !lastname || !password){
-    //      return res.json({
-    //         message : " Enter all input Fields "
-    //      })
-    //  }
+     if(!username ||  !firstname || !lastname || !password){
+         return res.json({
+            message : " Enter all input Fields "
+         })
+     }
 
-    //  const  user = await User.create({
-    //     username : username,
-    //     firstname : firstname,
-    //     lastname : lastname,
-    //     password : password
-    //  })
-    console.log('new user is -',);
+     const  user = await User.create({ username,firstname,lastname,password });
 
-     const { username } = req.body;
-
-     console.log('new user is  1 -',{ username });
+     console.log('new user is  1 -',user);
 
     return res.status(200).json({
         message : "User Created"
