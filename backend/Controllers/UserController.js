@@ -1,26 +1,36 @@
 import express from 'express';
 import { User } from '../Schema/UserSchema.js';
 import bcrypt from 'bcrypt';
+import UserZodSchema from '../types.js';
 
 const app = express();
 
  export const  SignupHandler = async(req,res) => {
-
     try {
         
         const { email , firstname , lastname , password }   = req.body;
         console.log('basic body -',email , firstname , lastname , password);
 
-        if(!email ||  !firstname || !lastname || !password){
-            return res.json({
+        const body  =  req.body;
+        console.log('body -',body);
+
+        const ParsedData = UserZodSchema.safeParse(body);
+        console.log('Parsed Data -',ParsedData);
+
+        if(!ParsedData.success){
+            return res.status(411).json({
                 message : " Enter all input Fields "
             })
         }
 
-        const PasswordEnc = await bcrypt.hash(password,10);
+        const PasswordEnc = await bcrypt.hash(body.password,10);
         console.log('Pass enc -',PasswordEnc);
 
-        const  user = await User.create({ email,firstname,lastname,password : PasswordEnc });
+        const  user = await User.create({ 
+            email : body.email , 
+            firstname : body.firstname ,
+            lastname : body.lastname,
+            password : PasswordEnc });
 
         console.log('new user is  1 -',user);
 
@@ -31,6 +41,7 @@ const app = express();
        }
 
     catch (error) {
+        console.log('error -',error );
          return res.status(500).json({
             message : "Signup Failed"
          })
@@ -64,9 +75,9 @@ const app = express();
             }) 
         }
 
-            return res.status(200).json({
+        return res.status(200).json({
                 message : "User Loggedin"
-            }) 
+        }) 
 
     } catch (error) {
          return res.status(500).json({
