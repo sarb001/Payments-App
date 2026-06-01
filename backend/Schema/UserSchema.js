@@ -7,20 +7,17 @@ const UserSchema = mongoose.Schema({
          required : true
     },
     firstname : {
-        type :String ,   
-         unique  : true,
-         required : true
+        type : String,
+        required : true
     },
     lastname : {
-         type :String ,   
-         unique  : true,
+         type : String,
          required : true
     },
     password : {
-         type :String ,   
-         unique  : true,
+         type : String,
          required : true
     }
 })
 
-export const User = new mongoose.model('User',UserSchema);
+export const User = mongoose.model('User', UserSchema);
