@@ -1,11 +1,14 @@
 import zod from 'zod';
 
-const UserZodSchema = zod.object({
-     email : zod.string(),
+export const UserZodSchema = zod.object({
+     email : zod.string().email(),
      firstname : zod.string(),
      lastname : zod.string(),
      password : zod.string(),
 })
 
 
-export default UserZodSchema;
+export const LoginzodSchema = zod.object({
+     email : zod.string().email(),
+     password : zod.string(),
+})

@@ -1,7 +1,8 @@
 import express from 'express';
 import { User } from '../Schema/UserSchema.js';
 import bcrypt from 'bcrypt';
-import UserZodSchema from '../types.js';
+import { LoginzodSchema, UserZodSchema } from '../types.js';
+import jwt from 'jsonwebtoken';
 
 const app = express();
 
@@ -44,8 +45,10 @@ const app = express();
  export const  LoginHandler = async(req,res) => {
     try {  
         const body = req.body;
-
-        const Loginuser = UserZodSchema.safeParse(body);
+        console.log('body is -',body);
+        
+        const Loginuser = LoginzodSchema.safeParse(body);
+        console.log('lOGON USER is -',Loginuser);
 
          if(!Loginuser.success){
             return res.status(400).json({
@@ -64,6 +67,12 @@ const app = express();
         
         const Hashedpass = await bcrypt.compare(body?.password,MainUser.password);
         console.log('hashpass is =',Hashedpass);
+
+        const Secretkey = "sarb@123";
+
+        const userjwt = jwt.sign({email : MainUser?._id },Secretkey);
+
+        console.log('userjwt - ',userjwt);
 
         if(!Hashedpass){
             return res.status(500).json({
