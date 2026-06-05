@@ -56,7 +56,7 @@ const app = express();
             })
         }
 
-        const MainUser = await User.findOne({email : body?.email }).select("+password");
+        const MainUser = await User.findOne({email : Loginuser?.data?.email }).select("+password");
         console.log('pass is =',MainUser);
 
         if(!MainUser){
@@ -70,9 +70,9 @@ const app = express();
 
         const Secretkey = "sarb@123";
 
-        const userjwt = jwt.sign({email : MainUser?._id },Secretkey);
+        const Token = jwt.sign({email : MainUser?._id },Secretkey);
 
-        console.log('userjwt - ',userjwt);
+        console.log('userjwt - ',Token);
 
         if(!Hashedpass){
             return res.status(500).json({
@@ -81,7 +81,9 @@ const app = express();
         }
 
         return res.status(200).json({
-                message : "User Loggedin"
+                message : "User Loggedin",
+                Token,
+                MainUser
         }) 
 
     } catch (error) {
@@ -89,4 +91,21 @@ const app = express();
             message : "Login Failed"
          })
     }
+}
+
+export const UpdateUser = async(req,res) => {
+     try {
+        
+         console.log('Inside updation');
+
+         return res.status(200).json({
+            message : "Updation Done"
+         })
+
+     } catch (error) {
+         console.log('updation error -',error);
+            return res.status(500).json({
+                message : "Updation Failed"
+            })
+     }
 }
