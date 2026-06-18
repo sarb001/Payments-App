@@ -10,5 +10,9 @@ router.post('/login' , LoginHandler);
 
 router.post('/updateuser'  , Authorization  ,UpdateUser);
 
+// router.post('/userprofile'  , Authorization  ,UpdateUser);
+
+// router.post('/allusers'  , Authorization  ,UpdateUser);
+
 export default router;
 
