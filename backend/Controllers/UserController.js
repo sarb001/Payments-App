@@ -10,7 +10,6 @@ const app = express();
     try {
 
         const body = req.body;
-        console.log('body -', body);
 
         const parsed = UserZodSchema.safeParse(body);
         if (!parsed.success) {
@@ -21,7 +20,6 @@ const app = express();
 
         const data = parsed.data;
         const passwordEnc = await bcrypt.hash(data.password, 10);
-        console.log('Pass enc -', passwordEnc);
 
         const user = await User.create({
             email: data.email,
@@ -30,10 +28,10 @@ const app = express();
             password: passwordEnc
         });
 
-        console.log('new user is -', user);
         return res.status(201).json({
             message: 'User Created'
         });
+        
     } catch (error) {
         console.log('error -', error);
         return res.status(500).json({
@@ -45,10 +43,8 @@ const app = express();
  export const  LoginHandler = async(req,res) => {
     try {  
         const body = req.body;
-        console.log('body is -',body);
         
         const Loginuser = LoginzodSchema.safeParse(body);
-        console.log('lOGON USER is -',Loginuser);
 
          if(!Loginuser.success){
             return res.status(400).json({
@@ -57,7 +53,6 @@ const app = express();
         }
 
         const MainUser = await User.findOne({email : Loginuser?.data?.email }).select("+password");
-        console.log('pass is =',MainUser);
 
         if(!MainUser){
             return res.status(500).json({
@@ -66,13 +61,10 @@ const app = express();
         }
         
         const Hashedpass = await bcrypt.compare(body?.password,MainUser.password);
-        console.log('hashpass is =',Hashedpass);
 
         const Secretkey = "sarb@123";
 
         const Token = jwt.sign({email : MainUser?._id },Secretkey);
-
-        console.log('userjwt - ',Token);
 
         if(!Hashedpass){
             return res.status(500).json({
@@ -109,3 +101,29 @@ export const UpdateUser = async(req,res) => {
             })
      }
 }
+
+export const UserProfile = async(req,res) => {
+     try {
+        
+     } catch (error) {
+        
+     }
+}   
+
+export const AllUsers = async(req,res) => {
+     try {
+        
+        const  users = await User.find({});
+
+        return res.status(200).json({
+            message : "All users fetched"
+        })
+
+     } catch (error) {
+        return res.status(500).json({
+            message : "Unable to fetch All Users"
+        })
+     }
+}   
+
+

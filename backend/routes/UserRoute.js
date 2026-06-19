@@ -1,5 +1,5 @@
 import express from 'express';
-import { LoginHandler, SignupHandler, UpdateUser } from '../Controllers/UserController.js';
+import { AllUsers, LoginHandler, SignupHandler, UpdateUser, UserProfile } from '../Controllers/UserController.js';
 import { Authorization } from '../Auth/auth.js';
 
 const router = express.Router();
@@ -10,9 +10,9 @@ router.post('/login' , LoginHandler);
 
 router.post('/updateuser'  , Authorization  ,UpdateUser);
 
-// router.post('/userprofile'  , Authorization  ,UpdateUser);
+router.post('/userprofile'  , Authorization  ,UserProfile);
 
-// router.post('/allusers'  , Authorization  ,UpdateUser);
+router.get('/allusers'  , Authorization  ,AllUsers);
 
 export default router;
 
