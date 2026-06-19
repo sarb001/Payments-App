@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 const app = express();
 
- export const  SignupHandler = async(req,res) => {
+export const  SignupHandler = async(req,res) => {
     try {
 
         const body = req.body;
