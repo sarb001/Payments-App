@@ -40,7 +40,7 @@ const app = express();
     }
 };
 
- export const  LoginHandler = async(req,res) => {
+export const  LoginHandler = async(req,res) => {
     try {  
         const body = req.body;
         
@@ -104,8 +104,16 @@ export const UpdateUser = async(req,res) => {
 
 export const UserProfile = async(req,res) => {
      try {
+        console.log('user profile-',req.user);
         
-        console.log('user profile-');
+        const user = await User.find({email : req.user?.email}).select("-password");
+        console.log('main user ',user);
+
+        if(!user){
+            return res.status(400).json({
+                message : "User not  Found "
+            })
+        }
 
         return res.status(200).json({
             message : "User Profile"

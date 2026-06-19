@@ -20,7 +20,7 @@ export const Authorization = (req,res,next) => {
         const Secretkey = "sarb@123";
         const verifyUser = jwt.verify(maintoken,Secretkey);
         console.log('Verify user-',verifyUser);
-        
+        req.user = verifyUser;
         next();
 
     } catch (error) {
