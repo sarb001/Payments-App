@@ -31,7 +31,7 @@ const app = express();
         return res.status(201).json({
             message: 'User Created'
         });
-        
+
     } catch (error) {
         console.log('error -', error);
         return res.status(500).json({
@@ -64,7 +64,7 @@ const app = express();
 
         const Secretkey = "sarb@123";
 
-        const Token = jwt.sign({email : MainUser?._id },Secretkey);
+        const Token = jwt.sign({email : MainUser?.email },Secretkey);
 
         if(!Hashedpass){
             return res.status(500).json({
@@ -105,8 +105,17 @@ export const UpdateUser = async(req,res) => {
 export const UserProfile = async(req,res) => {
      try {
         
+        console.log('user profile-');
+
+        return res.status(200).json({
+            message : "User Profile"
+        })
+
      } catch (error) {
-        
+        console.log(' profile error -',error);
+         return res.status(500).json({
+            message : "Unable to fetch All Users"
+        })
      }
 }   
 

@@ -10,7 +10,7 @@ router.post('/login' , LoginHandler);
 
 router.post('/updateuser'  , Authorization  ,UpdateUser);
 
-router.post('/userprofile'  , Authorization  ,UserProfile);
+router.get('/userprofile'  , Authorization  ,UserProfile);
 
 router.get('/allusers'  , Authorization  ,AllUsers);
 
