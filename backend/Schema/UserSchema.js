@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { number } from "zod";
 
 const UserSchema = mongoose.Schema({
     email : {
@@ -17,6 +18,11 @@ const UserSchema = mongoose.Schema({
     password : {
          type : String,
          required : true
+    },
+    balance : {
+          type : number,
+          required : true,
+          default : 0,
     }
 })
 

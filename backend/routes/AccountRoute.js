@@ -1,8 +1,9 @@
 import express from 'express';
-import { SendMoney } from '../Controllers/AccountController';
+import { AddMoney } from '../Controllers/AccountController.js';
+import { Authorization } from '../Auth/auth.js';
 
 const router = express.Router();
 
-router.post('/pay',SendMoney);
+router.post('/addmoney',Authorization ,AddMoney);
 
 export default router;
