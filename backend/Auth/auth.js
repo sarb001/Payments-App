@@ -7,16 +7,15 @@ export const Authorization = (req,res,next) => {
         const token = req.headers.Authorization || req.headers.authorization ;
         console.log('token-',token);
 
-        console.log('token type-' , typeof(token));
-        
-        const maintoken = token.split(" ")[1];
-        console.log('main token-',maintoken);
-        
         if(!token){
             return res.status(411).json({
                 message : "User not  Authorized"
             })
-        }                                                                                                            
+        }                                                                                                    
+        
+        const maintoken = token.split(" ")[1];
+        console.log('main token-',maintoken);
+        
         const Secretkey = "sarb@123";
         const verifyUser = jwt.verify(maintoken,Secretkey);
         console.log('Verify user-',verifyUser);
@@ -29,6 +28,5 @@ export const Authorization = (req,res,next) => {
             message : "Authentication Failed"
          })   
     }
-    // token validate
 
 }
