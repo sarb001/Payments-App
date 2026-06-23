@@ -106,7 +106,7 @@ export const UserProfile = async(req,res) => {
      try {
         console.log('user profile-',req.user);
         
-        const user = await User.find({email : req.user?.email}).select("-password");
+        const user = await User.findOne({email : req.user?.email}).select("-password");
         console.log('main user ',user);
 
         if(!user){

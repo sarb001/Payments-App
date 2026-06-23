@@ -15,8 +15,10 @@ export const AddMoney = async(req,res) => {
     const user = await User.findOne({email : req.user?.email}).select("-password");
     console.log('mainn user ',user);
     
-    const Totalbalance = body?.balance + user?.balance;
-    console.log('Total balance-',Totalbalance);
+    user.balance = body?.balance + user.balance;
+    console.log('Total balance-',user.balance);
+
+    await user.save();
 
     if(!user){
       return res.status(400).json({
