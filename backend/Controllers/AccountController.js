@@ -40,11 +40,19 @@ export const AddMoney = async(req,res) => {
   }
 }
 
-
 export const SendMoney = async(req,res) => {
   try {
     
+    //  userprofile 
+
+    //  another user bal added up  ++
+    //  mine bal -- 
+
+
   } catch (error) {
-    
+    console.log('error -',error);
+    return res.status(500).json({
+       message : "Failed to Send Money"
+    })
   }
 }
