@@ -1,7 +1,23 @@
-import { Link } from "react-router-dom"
-
+import { useState } from "react"
+import { Link } from "react-router-dom" ;
 
 export const Signup = () => {
+
+    const[valuename,setvaluename] = useState({
+         firstname : "",
+         lastname : "",
+         email : "",
+         password : ""
+    });
+
+    const Signuphandler = () => {
+         const {firstname , lastname , email , password } = valuename;
+         console.log('all input data -',{firstname , lastname , email , password });
+          if(!firstname || !lastname || !email || !password){
+              console.log('Enter  all Fields.')
+          }
+    }
+
     return (
         <div className="bg-slate-300 h-[100vh] w-full flex justify-center ">
 
@@ -12,31 +28,53 @@ export const Signup = () => {
 
                     <div>
                         <div>
-                            <div> First Name </div>
-                            <input type = "text"  value = ""  placeholder="John" 
-                              className="border-2 border-black focus:border-0 my-2 rounded-md w-full"
+                            <label>  First Name </label>
+                            <input type = "text"   value = {valuename.firstname || ""}
+                             onChange = {(e) =>  setvaluename({
+                                  ...valuename,
+                                  firstname : e.target.value,
+                             }) }
+                             placeholder="John" 
+                              className="border-[2px] border-black  my-2 rounded-md w-full"
                             />
                         </div>
                         <div className="py-4">
-                            <div> Last Name </div>
-                            <input type = "text"  value = ""  placeholder="Doe" 
-                             className="border-2 border-black focus:border-0 my-2 rounded-md w-full"
+                            <label>  Last Name  </label>
+                            <input type = "text"  value = {valuename.lastname || ""}   
+                             onChange={(e) => setvaluename({
+                                 ...valuename,
+                                 lastname : e.target.value
+                             })}
+                             placeholder="Doe" 
+                             className="border-2 border-black  my-2 rounded-md w-full"
                             />
                         </div>
                         <div>
-                            <div> Email </div>
-                            <input type = "text"  value = ""  placeholder="johndoe@example.com" 
-                             className="border-2 border-black focus:border-0 my-2 rounded-md w-full"
+                            <label> Email  </label>
+                            <input type = "text"   value = {valuename.email || ""}   
+                             onChange={(e) => setvaluename({
+                                 ...valuename,
+                                 email : e.target.value
+                             })}
+                               placeholder="johndoe@example.com" 
+                             className="border-2 border-black  my-2 rounded-md w-full"
                             />
                         </div>
                         <div className="py-4">
-                            <div> Password </div>
-                            <input type = "text"  value = ""  placeholder = "************"
-                            className="border-2 border-black focus:border-0 my-2 rounded-md w-full"
+                            <label>  Password </label> 
+                            <input type = "text"    value = {valuename.password || ""}   
+                               onChange={(e) => setvaluename({
+                                 ...valuename,
+                                 password : e.target.value
+                               })}
+                            placeholder = "************"
+                            className="border-2 border-black  my-2 rounded-md w-full"
                              />
                         </div>
                         <div className="flex w-full justify-center">
-                            <button className="text-white bg-black px-32 py-[5px] rounded-md  "> Sign Up </button>
+                            <button onClick={Signuphandler} className="text-white bg-black px-32 py-[5px] rounded-md  ">
+                                 Sign Up 
+                            </button>
                         </div>
                         <div className="py-2">
                             <span> Already have an account?
