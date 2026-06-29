@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 
 export const Signup = () => {
@@ -38,7 +39,9 @@ export const Signup = () => {
                             <button className="text-white bg-black px-32 py-[5px] rounded-md  "> Sign Up </button>
                         </div>
                         <div className="py-2">
-                            <span> Already have an account? Login </span>
+                            <span> Already have an account?
+                                <Link to = "/signin" > Login </Link> 
+                             </span>
                         </div>
                     </div>
 
