@@ -1,7 +1,18 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 
 export const Signin = () => {
+
+    const[inputvalue,setinputvalue] = useState({
+        email  : "",
+        password : ""
+    })
+
+    const Loginhandler = () => {
+        console.log('login handler')
+    }   
+
     return (
         <>
            <div className="bg-slate-300 h-[100vh] w-full flex justify-center ">
@@ -12,19 +23,30 @@ export const Signin = () => {
                     <div className="py-4"> Enter your credentials to access your account </div>  
                     <div>
                         <div>
-                                    <div> Email </div>
-                                    <input type = "text"  value = ""  placeholder="johndoe@example.com" 
-                                    className="border-2 border-black focus:border-0 my-2 rounded-md w-full"
+                                    <label> Email </label>
+                                    <input type = "text"  value = {inputvalue.email || ""}  placeholder="johndoe@example.com"  
+                                    onChange = {(e) => setinputvalue({
+                                        ...inputvalue,
+                                        email : e.target.value
+                                    })}
+                                    className="border-2 border-black  my-2 rounded-md w-full"
                                     />
                         </div>
                         <div className="py-4">
                                     <div> Password </div>
-                                    <input type = "text"  value = ""  placeholder = "************"
-                                    className="border-2 border-black focus:border-0 my-2 rounded-md w-full"
+                                    <input type = "text"  value = {inputvalue.password || ""} 
+                                      onChange = {(e) => setinputvalue({
+                                        ...inputvalue,
+                                        password : e.target.value
+                                    })}
+                                    placeholder = "************"
+                                    className="border-2 border-black  my-2 rounded-md w-full"
                                     />
                         </div>
                             <div className="flex w-full justify-center">
-                                    <button className="text-white bg-black px-32 py-[5px] rounded-md  "> Sign In </button>
+                                    <button className="text-white bg-black px-32 py-[5px] rounded-md  "
+                                     onClick={Loginhandler}>
+                                         Sign In </button>
                             </div>
                                 <div className="py-2">
                                     <span> Don't have an account?
