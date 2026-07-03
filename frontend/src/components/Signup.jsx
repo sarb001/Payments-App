@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom" ;
+import axios from 'axios';
 
 export const Signup = () => {
 
@@ -10,12 +11,23 @@ export const Signup = () => {
          password : ""
     });
 
-    const Signuphandler = () => {
+    const Signuphandler = async() => {
          const {firstname , lastname , email , password } = valuename;
          console.log('all input data -',{firstname , lastname , email , password });
           if(!firstname || !lastname || !email || !password){
               console.log('Enter  all Fields.')
           }
+
+          try {   
+              const Mainuser = await axios.post('http://localhost:3000/api/v1/user/signup',{
+                 firstname,lastname,email , password
+              });
+              console.log('main user created -',Mainuser);
+
+            } catch (error) {
+                console.log(' error new user ', error);
+            
+            }
     }
 
     return (

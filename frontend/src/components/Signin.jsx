@@ -10,7 +10,11 @@ export const Signin = () => {
     })
 
     const Loginhandler = () => {
-        console.log('login handler')
+        const { email ,password } =  inputvalue;
+        console.log('login handler');
+        if(!email || !password){
+            console.log('Enter all Details');
+        }
     }   
 
     return (
